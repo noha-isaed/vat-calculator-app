@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>حاسبة ضريبة المبيعات وصافي الربح</h1>
+
+  <form [formGroup]="form" (ngSubmit)="calculate()">
+    <div class="field">
+      <label>مجموع المبيعات (شاملة الضريبة)</label>
+      <input type="number" formControlName="totalSales" step="0.01" />
+      <div class="error" *ngIf="form.get('totalSales')?.invalid && form.get('totalSales')?.touched">
+        أدخل قيمة صالحة ≥ 0
+      </div>
+    </div>
+
+    <div class="field">
+      <label>مجموع المشتريات (شاملة الضريبة)</label>
+      <input type="number" formControlName="totalPurchases" step="0.01" />
+      <div class="error" *ngIf="form.get('totalPurchases')?.invalid && form.get('totalPurchases')?.touched">
+        أدخل قيمة صالحة ≥ 0
+      </div>
+    </div>
+
+    <div class="field">
+      <label>عدد العمليات (اختياري)</label>
+      <input type="number" formControlName="operationsCount" />
+    </div>
+
+    <div class="field">
+      <label>عدد القطع المباعة</label>
+      <input type="number" formControlName="soldItemsCount" />
+    </div>
+
+    <div class="field">
+      <label>عدد القطع المشتراة</label>
+      <input type="number" formControlName="purchasedItemsCount" />
+    </div>
+
+    <button type="submit" [disabled]="loading">{{ loading ? 'جاري الحساب...' : 'احسب' }}</button>
+  </form>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+
+  <div class="results" *ngIf="results">
+    <h2>النتائج</h2>
+    <p>صافي المبيعات (قبل الضريبة): {{ results.results.netSales | number:'1.2-2' }}</p>
+    <p>صافي المشتريات (قبل الضريبة): {{ results.results.netPurchases | number:'1.2-2' }}</p>
+    <p>ضريبة المخرجات: {{ results.results.outputVAT | number:'1.2-2' }}</p>
+    <p>ضريبة المدخلات: {{ results.results.inputVAT | number:'1.2-2' }}</p>
+    <p>صافي الربح (قبل الضريبة): {{ results.results.netProfit | number:'1.2-2' }}</p>
+    <p>الضريبة المستحقة: {{ results.results.taxDue | number:'1.2-2' }}</p>
+    <p>هامش الربح: {{ results.results.profitMargin | number:'1.2-2' }}%</p>
+
+    <!-- <h3>المدخلات المرسلة</h3> -->
+    <!-- <pre>{{ results.inputs | json }}</pre> -->
+  </div>
+</div>
