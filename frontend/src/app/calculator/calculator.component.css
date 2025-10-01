@@ -88,7 +88,7 @@ body {
   order: 1;
   flex: 1;
   max-width: 50%;
-  border-top: 4px solid #1976d2;
+  border-top: 4px solid #667eea;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(25, 118, 210, 0.1);
   background: #fff;
@@ -100,7 +100,7 @@ body {
   order: 2;
   flex: 1;
   max-width: 50%;
-  border-top: 4px solid #2c5530;
+  border-top: 4px solid #667eea;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(44, 85, 48, 0.1);
   background: #fff;
@@ -132,7 +132,7 @@ button {
   padding: 12px 16px; 
   border: none; 
   border-radius: 6px; 
-  background: #1976d2; 
+  background: #667eea; 
   color: #fff; 
   cursor: pointer; 
   font-size: 16px;
@@ -182,31 +182,31 @@ button[disabled] {
 }
 
 .original-calculator h2 {
-  color: #1976d2;
+  color: #667eea;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .reverse-calculator h2 {
-  color: #2c5530;
+  color: #667eea;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .original-calculator button {
-  background: #1976d2;
+  background: #667eea;
 }
 
 .original-calculator button:hover:not(:disabled) {
-  background: #1565c0;
+  background: #667eea;
 }
 
 .reverse-calculator button {
-  background: #2c5530;
+  background: #667eea;
 }
 
 .reverse-calculator button:hover:not(:disabled) {
-  background: #24492a;
+  background: #667eea;
 }
 
 .results-container {
@@ -243,7 +243,8 @@ button[disabled] {
 }
 
 .result-box.highlight {
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  /*background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);*/
+    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
 }
@@ -285,19 +286,21 @@ button[disabled] {
 }
 
 .original-calculator .result-value {
-  color: #1976d2;
+  color: #667eea;
 }
 
 .reverse-calculator .result-value {
-  color: #2c5530;
+  color: #667eea;
 }
 
 .original-calculator .result-box.highlight {
-  background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+  /*background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);*/
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .reverse-calculator .result-box.highlight {
-  background: linear-gradient(135deg, #2c5530 0%, #1b3a23 100%);
+/*  background: linear-gradient(135deg, #2c5530 0%, #1b3a23 100%);*/
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* تحسينات للشاشات الصغيرة */
@@ -361,17 +364,17 @@ input {
 }
 
 input:focus {
-  border-color: #1976d2;
+  border-color: #667eea;
   outline: none;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
 .original-calculator input:focus {
-  border-color: #1976d2;
+  border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
 .reverse-calculator input:focus {
-  border-color: #2c5530;
+  border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
 }
