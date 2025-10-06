@@ -1,0 +1,18 @@
+[build]
+  publish = "dist/frontend/browser"
+  command = "npm install && npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production]
+  command = "ng build --configuration production"
+
+[context.deploy-preview]
+  command = "ng build --configuration production"
