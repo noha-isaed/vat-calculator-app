@@ -4,10 +4,7 @@ const app = express();
 const port = 3000;
 
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:4200'],  // سنضيف رابط Vercel لاحقاً
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // API endpoint for VAT calculation
@@ -59,11 +56,7 @@ app.post('/api/calculate', (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.json({ message: 'VAT Calculator API is running' });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+// Start server
+app.listen(port, () => {
+  console.log(`Backend server running at http://localhost:${port}`);
 });
