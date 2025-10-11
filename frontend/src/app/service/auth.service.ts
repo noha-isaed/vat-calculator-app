@@ -5,9 +5,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  // يمكنك تغيير البريد الإلكتروني وكلمة المرور هنا
-  private readonly VALID_EMAIL = 'noha.thaher@najah.edu';
-  private readonly VALID_PASSWORD = 'Noha@298';
+  private readonly VALID_EMAIL = 'admin@gmail.com';
+  private readonly VALID_PASSWORD = 'Admin@123';
   
   private readonly AUTH_KEY = 'isLoggedIn';
 
