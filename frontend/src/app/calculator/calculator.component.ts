@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../service/auth.service';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-calculator',
@@ -60,8 +62,11 @@ export class CalculatorComponent implements OnInit {
     this.error = '';
     this.results = null;
 
+
+
     const payload = this.form.value;
-    this.http.post('http://localhost:3000/api/calculate', payload).subscribe({
+  
+    this.http.post(`${environment.apiUrl}/api/calculate`, payload).subscribe({
       next: (res: any) => {
         this.results = res;
         this.loading = false;
