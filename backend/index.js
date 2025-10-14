@@ -4,7 +4,15 @@ const app = express();
 const port = 3000;
 
 // Middleware
-app.use(cors());
+const cors = require('cors');
+
+app.use(cors({
+  origin: [
+    'https://68ea66eb0136f10008a8f094--calculater-tax.netlify.app',  
+    'http://localhost:4200'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // API endpoint for VAT calculation

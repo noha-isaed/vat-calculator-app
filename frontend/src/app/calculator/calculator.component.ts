@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../service/auth.service';
 import { environment } from '../../environments/environment';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -101,4 +102,43 @@ export class CalculatorComponent implements OnInit {
       profitMargin: parseFloat(profitMargin.toFixed(2))
     };
   }
+
+  // دالة تصدير النتائج إلى Excel
+exportToExcel() {
+  if (!this.results) {
+    alert('لا توجد نتائج لتصديرها!');
+    return;
+  }
+
+  // إعداد البيانات للتصدير
+  const excelData = [
+    { 'البيان': 'صافي المبيعات (قبل الضريبة)', 'القيمة (شيكل)': this.results.results.netSales },
+    { 'البيان': 'صافي المشتريات (قبل الضريبة)', 'القيمة (شيكل)': this.results.results.netPurchases },
+    { 'البيان': 'ضريبة المخرجات (ضريبة المبيعات)', 'القيمة (شيكل)': this.results.results.outputVAT },
+    { 'البيان': 'ضريبة المدخلات (ضريبة المشتريات)', 'القيمة (شيكل)': this.results.results.inputVAT },
+    { 'البيان': 'الضريبة المستحقة للدفع', 'القيمة (شيكل)': this.results.results.taxDue },
+    { 'البيان': 'صافي الربح (قبل الضريبة)', 'القيمة (شيكل)': this.results.results.netProfit },
+    { 'البيان': 'هامش الربح', 'القيمة (شيكل)': `${this.results.results.profitMargin}%` }
+  ];
+
+  // إنشاء worksheet
+  const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+  // تعيين عرض الأعمدة
+  worksheet['!cols'] = [
+    { wch: 35 },  // عرض عمود البيان
+    { wch: 20 }   // عرض عمود القيمة
+  ];
+
+  // إنشاء workbook
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'نتائج الضريبة');
+
+  // تحديد اسم الملف مع التاريخ
+  const date = new Date();
+  const fileName = `نتائج_الضريبة_${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}.xlsx`;
+
+  // تنزيل الملف
+  XLSX.writeFile(workbook, fileName);
+}
 }

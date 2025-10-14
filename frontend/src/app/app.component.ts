@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -10,4 +11,5 @@ import { RouterOutlet } from '@angular/router';
   styles: []
   
 })
+
 export class AppComponent {}
