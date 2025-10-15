@@ -1,40 +1,31 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3000;
 
-// Middleware
+// CORS - السطر الأهم! ضعه قبل أي middleware آخر
 const cors = require('cors');
 
-app.use(cors({
-  origin: [
-    'https://68ea66eb0136f10008a8f094--calculater-tax.netlify.app',  
-    'http://localhost:4200'
-  ],
-  credentials: true
-}));
+// CORS مفتوح لكل المواقع (للاختبار فقط)
+app.use(cors());
+
 app.use(express.json());
 
-// API endpoint for VAT calculation
+// API endpoint
 app.post('/api/calculate', (req, res) => {
   try {
-    const { totalSales, totalPurchases, operationsCount, soldItemsCount, purchasedItemsCount } = req.body;
+    const { totalSales, totalPurchases } = req.body;
 
-    // Input validation
     if (totalSales === undefined || totalPurchases === undefined) {
       return res.status(400).json({ error: 'المبيعات والمشتريات مطلوبة' });
     }
 
-    // Convert to numbers
     const sales = parseFloat(totalSales);
     const purchases = parseFloat(totalPurchases);
 
-    // Validate numbers
     if (isNaN(sales) || isNaN(purchases) || sales < 0 || purchases < 0) {
       return res.status(400).json({ error: 'قيم غير صالحة' });
     }
 
-    // Calculations
     const netSales = sales / 1.16;
     const netPurchases = purchases / 1.16;
     const outputVAT = netSales * 0.16;
@@ -43,7 +34,6 @@ app.post('/api/calculate', (req, res) => {
     const taxDue = outputVAT - inputVAT;
     const profitMargin = netSales > 0 ? (netProfit / netSales) * 100 : 0;
 
-    // Prepare response
     const results = {
       netSales: parseFloat(netSales.toFixed(2)),
       netPurchases: parseFloat(netPurchases.toFixed(2)),
@@ -64,7 +54,12 @@ app.post('/api/calculate', (req, res) => {
   }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Backend server running at http://localhost:${port}`);
+// Health check
+app.get('/', (req, res) => {
+  res.json({ message: 'VAT Calculator API is running' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Backend server running on port ${PORT}`);
 });
