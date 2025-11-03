@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private readonly VALID_EMAIL = 'admin@gmail.com';
-  private readonly VALID_PASSWORD = 'Admin@123';
+  private readonly VALID_PASSWORD = 'admin@111';
   
   private readonly AUTH_KEY = 'isLoggedIn';
 
