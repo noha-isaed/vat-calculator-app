@@ -7,7 +7,6 @@ import { AuthService } from '../service/auth.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'xlsx';
 
-
 @Component({
   selector: 'app-calculator',
   standalone: true,
@@ -64,15 +63,20 @@ export class CalculatorComponent implements OnInit {
     this.results = null;
 
 
-
     const payload = this.form.value;
+
+    console.log(payload);
   
     this.http.post(`${environment.apiUrl}/api/calculate`, payload).subscribe({
       next: (res: any) => {
+        console.log("result");
+        console.log(payload);
         this.results = res;
         this.loading = false;
       },
       error: (err) => {
+        console.log("error");
+        console.log(payload);
         console.error(err);
         this.error = 'حصل خطأ بالاتصال بالسيرفر';
         this.loading = false;
@@ -142,3 +146,4 @@ exportToExcel() {
   XLSX.writeFile(workbook, fileName);
 }
 }
+
