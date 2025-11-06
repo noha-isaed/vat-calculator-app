@@ -2,11 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// CORS - السطر الأهم! ضعه قبل أي middleware آخر
-const cors = require('cors');
 
-// CORS مفتوح لكل المواقع (للاختبار فقط)
-app.use(cors());
+app.use(cors({
+  origin: "https://calculater-tax.netlify.app/",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 
 app.use(express.json());
 
