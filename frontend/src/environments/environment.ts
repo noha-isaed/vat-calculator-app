@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://vat-calculator-app.onrender.com'
+  apiUrl: 'http://localhost:3000'  // ✅ للتطوير المحلي
 };

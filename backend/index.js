@@ -2,17 +2,40 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:4200',           // ✅ مهم جداً - Angular Port
+  'https://calculater-tax.netlify.app'
+];
 app.use(cors({
-  origin: "https://calculater-tax.netlify.app/",
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('❌ Blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
-
 
 app.use(express.json());
 
-// API endpoint
+// ✅ Root
+app.get('/', (req, res) => {
+  res.json({ message: 'VAT Calculator API is running' });
+});
+
+// ✅ Health
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// ✅ Calculate
 app.post('/api/calculate', (req, res) => {
   try {
     const { totalSales, totalPurchases } = req.body;
@@ -36,19 +59,18 @@ app.post('/api/calculate', (req, res) => {
     const taxDue = outputVAT - inputVAT;
     const profitMargin = netSales > 0 ? (netProfit / netSales) * 100 : 0;
 
-    const results = {
-      netSales: parseFloat(netSales.toFixed(2)),
-      netPurchases: parseFloat(netPurchases.toFixed(2)),
-      outputVAT: parseFloat(outputVAT.toFixed(2)),
-      inputVAT: parseFloat(inputVAT.toFixed(2)),
-      netProfit: parseFloat(netProfit.toFixed(2)),
-      taxDue: parseFloat(taxDue.toFixed(2)),
-      profitMargin: parseFloat(profitMargin.toFixed(2))
-    };
-
     res.json({
-      inputs: req.body,
-      results: results
+      success: true,
+      inputs: { totalSales: sales, totalPurchases: purchases },
+      results: {
+        netSales: parseFloat(netSales.toFixed(2)),
+        netPurchases: parseFloat(netPurchases.toFixed(2)),
+        outputVAT: parseFloat(outputVAT.toFixed(2)),
+        inputVAT: parseFloat(inputVAT.toFixed(2)),
+        netProfit: parseFloat(netProfit.toFixed(2)),
+        taxDue: parseFloat(taxDue.toFixed(2)),
+        profitMargin: parseFloat(profitMargin.toFixed(2))
+      }
     });
   } catch (error) {
     console.error('Error:', error);
@@ -56,12 +78,7 @@ app.post('/api/calculate', (req, res) => {
   }
 });
 
-// Health check
-app.get('/', (req, res) => {
-  res.json({ message: 'VAT Calculator API is running' });
-});
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });
