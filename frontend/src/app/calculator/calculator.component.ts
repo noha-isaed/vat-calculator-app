@@ -48,9 +48,8 @@ export class CalculatorComponent implements OnInit {
   }
 
   logout() {
-   // if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
       this.authService.logout();
-   // }
+  
   }
 
   calculate() {
@@ -107,14 +106,12 @@ export class CalculatorComponent implements OnInit {
     };
   }
 
-  // دالة تصدير النتائج إلى Excel
 exportToExcel() {
   if (!this.results) {
     alert('لا توجد نتائج لتصديرها!');
     return;
   }
 
-  // إعداد البيانات للتصدير
   const excelData = [
     { 'البيان': 'صافي المبيعات (قبل الضريبة)', 'القيمة (شيكل)': this.results.results.netSales },
     { 'البيان': 'صافي المشتريات (قبل الضريبة)', 'القيمة (شيكل)': this.results.results.netPurchases },
@@ -125,24 +122,19 @@ exportToExcel() {
     { 'البيان': 'هامش الربح', 'القيمة (شيكل)': `${this.results.results.profitMargin}%` }
   ];
 
-  // إنشاء worksheet
   const worksheet = XLSX.utils.json_to_sheet(excelData);
 
-  // تعيين عرض الأعمدة
   worksheet['!cols'] = [
-    { wch: 35 },  // عرض عمود البيان
-    { wch: 20 }   // عرض عمود القيمة
+    { wch: 35 },  
+    { wch: 20 }   
   ];
 
-  // إنشاء workbook
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'نتائج الضريبة');
 
-  // تحديد اسم الملف مع التاريخ
   const date = new Date();
   const fileName = `نتائج_الضريبة_${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}.xlsx`;
 
-  // تنزيل الملف
   XLSX.writeFile(workbook, fileName);
 }
 }

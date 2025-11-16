@@ -6,7 +6,6 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 
-// تعريف المسارات
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

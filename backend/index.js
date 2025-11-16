@@ -4,7 +4,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://localhost:4200',           // ✅ مهم جداً - Angular Port
+  'http://localhost:4200',           
   'https://calculater-tax.netlify.app'
 ];
 app.use(cors({
@@ -25,17 +25,17 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ Root
+
 app.get('/', (req, res) => {
   res.json({ message: 'VAT Calculator API is running' });
 });
 
-// ✅ Health
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// ✅ Calculate
+
 app.post('/api/calculate', (req, res) => {
   try {
     const { totalSales, totalPurchases } = req.body;
@@ -80,5 +80,5 @@ app.post('/api/calculate', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  console.log(` Server running on http://localhost:${PORT}`);
 });

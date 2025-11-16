@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 
-/* Header Styles */
 .app-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -73,7 +72,6 @@ body {
   font-size: 16px;
 }
 
-/* Container and Calculator Styles */
 .container { 
   max-width: 1400px;
   margin: 20px auto; 
@@ -300,7 +298,6 @@ button[disabled] {
   background: linear-gradient(135deg, #2c5530 0%, #1b3a23 100%);
 }
 
-/* تحسينات للشاشات الصغيرة */
 @media (max-width: 968px) {
   .header-content {
     flex-direction: column;
@@ -346,7 +343,6 @@ button[disabled] {
   }
 }
 
-/* تأثيرات إضافية */
 button {
   transition: all 0.3s ease;
 }
