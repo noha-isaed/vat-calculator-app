@@ -242,7 +242,7 @@ button[disabled] {
 
 .result-box.highlight {
   /*background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);*/
-    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   color: white;
   border: none;
 }
@@ -299,6 +299,7 @@ button[disabled] {
 .reverse-calculator .result-box.highlight {
 /*  background: linear-gradient(135deg, #2c5530 0%, #1b3a23 100%);*/
   background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
 }
 
 @media (max-width: 968px) {
